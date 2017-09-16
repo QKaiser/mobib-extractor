@@ -1,14 +1,49 @@
-# About
+# MOBIB Card Reader - 2017 Edition
 
-MOBIB-extractor allows you to read the data stored on your STIB Mobib card.
+Read data stored on your MOBIB card (STIB/MIVB, SNCB/NMBS, TEC).
 
-# Screenshot
+My objective with this project is to:
 
-Everybody loves screenshots :-)
+- get rid of this bloated Tk GUI and have a simple CLI tool
+- use valid APDUs for recent smartcards and adapt parsing code
+- rewrite parsing code in a Pythonic way
+- clean install & packaging
 
-![MOBIB Extractor screenshot](https://raw.githubusercontent.com/zoobab/mobib-extractor/master/mobib-extractor-screenshot.png)
+Right now it only supports smartcard readers. NFC will come later.
 
-# License
+# Installation
+
+## on Linux
+
+```
+apt-get install libpcsclite1 libpcsclite1-dev python python-virtualenv
+virtualenv ve
+source ve/bin/activate
+pip install -r requirements.txt
+```
+
+## on Mac OS X
+
+TODO
+
+## on Microsoft Windows
+
+TODO
+
+# Background Information
+
+If you want to know about new APDUs and format, check the [documentation](Documentation.md)
+
+Two scripts are available at the moment:
+
+- extract.py that reads owner details and last three known locations
+- test.py that emulates commands sent by the STIB plugin
+
+# Credits
+
+Initial research project was performed by Tania Marting <tania.martin@uclouvain.be> and Jean-Pierre Szikora <jean-pierre.Szikora@uclouvain.be> from UCL GIS. All credits goes to them for their amazing work with this :)
+
+# Original License
 
 (c) 2009 MOBIB Extractor project. This software is provided 'as-is',
 without any express or implied warranty. In no event will the authors be held
@@ -17,82 +52,3 @@ liable for any damages arising from the use of this software.
 Permission is granted to anyone to use this software for any purpose,
 including commercial applications, and to alter it and redistribute it
 freely, subject to no restriction.
-
-Technical remarks and questions can be addressed to
-<tania.martin@uclouvain.be>
-<jean-pierre.Szikora@uclouvain.be>
-
-# Installation
-
-## on Linux
-
-You must install:
-- pcsc_lite
-- ccid
-- python
-- the python library PIL 
-- pyscard
-
-If you use the smartcard reader ACS ACR38, you have to install the
-corresponding package.
-
-
-## on Mac OS X 10.5.6 (last version)
-
-As this new version contains pcsc_lite, ccid and python, you only have to
-install:
-- the python library PIL
-- pyscard (the mpkg is easily found on the web)
-If you use the smartcard reader ACS ACR38, the driver mpkg can be found on the
-manufacturer (ACS) website.
-
-
-## on Windows
-
-You must install:
-- python
-- the python library PIL
-- pyscard
-If you use the smartcard reader ACS ACR38, the driver can be found on the
-manufacturer (ACS) website.
-
-# Run
-
-You can then launch the application MOBIB-Extractor.py in the terminal using
-the command:
-- For UNIX architecture : ./MOBIB-Extractor.py or python MOBIB-Extractor.py
-- For Windows : MOBIB-Extractor.py
-
-# User manual
-
-1. If you want to read a card:
-  * Plug your reader and put your card on
-  * Click File and click Acquisition
-2. If you want to read an old dump file card:
-  * Click File and click Open dump
-  * Then select the file you want to read
-3. If you want to save a dump card:
-  * Click File and click Save dump
-  * Then choose the name and directory to record the dump
-
-# Keyboard shortcuts
-
-- ```<Double-Click>``` to zoom + or -
-- ```<MouseWheel>``` to vertical scroll
-- ```<Left arrow>``` to scroll left
-- ```<Right arrow>``` to scroll right
-- ```<Up arrow>``` to scroll up
-- ```<Down arrow>``` to scroll down
-- ```<Esc>``` to leave the program
-- ```<a>``` to dump a card
-- ```<o>``` to open a dump
-- ```<s>``` to save a dump
-
-# Todo
-
-* add a requirements.txt
-* add a list of tested and working readers
-* dump the content with an NFC reader with Nexus5 and read it?
-* add a docker container
-* CLI output next to this TK graphical interface
-* TK interface is too big
