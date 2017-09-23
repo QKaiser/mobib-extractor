@@ -41,30 +41,7 @@ numero = ['0','1','2','3','4','5','6','7','8','9']
 
 ## Hexadecimal to binary
 def hex_to_bin(h):
-	res = ''
-	for i in range(0,len(h)):
-		if h[i] in numero:
-			a = int(h[i]) 
-		else:
-			if h[i] == "A":
-				a = int(10)
-			if h[i] == "B":
-				a = int(11)
-			if h[i] == "C":
-				a = int(12)
-			if h[i] == "D":
-				a = int(13)
-			if h[i] == "E":
-				a = int(14)
-			if h[i] == "F":
-				a = int(15)
-		for j in (3,2,1,0):
-			if a-pow(2,j) >= 0:
-				res = res + "1"
-				a = a - pow(2,j)
-			else:
-				res = res + "0"
-	return res
+    return bin(int(h,16))[2:].zfill(len(h)*4)
 
 
 ## Binary to alphabet with offset t (on 5 bits)
