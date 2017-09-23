@@ -43,7 +43,6 @@ numero = ['0','1','2','3','4','5','6','7','8','9']
 def hex_to_bin(h):
     return bin(int(h,16))[2:].zfill(len(h)*4)
 
-
 ## Binary to alphabet with offset t (on 5 bits)
 def bin_to_alphabet (b, t):
     res = ''
@@ -52,27 +51,17 @@ def bin_to_alphabet (b, t):
 	res += ' ' if (a > 26 or a < 1) else chr(64+a)
     return res
 
-
 ## Binary to number (on the total length)
 def bin_to_number (b):
     return str(int(b,2))
 
 ## Binary to number with offset t (on 4 bits)
 def bin_to_number_dec (b, t):
-	res = ''
-	a = int(0)
-	if len(b)%4 == 0:
-		r = 4
-	else:
-		r = len(b)%4
-	for i in range(0+t,len(b)-(r+t), 4):
-		a = int(b[i])*8 + int(b[i+1])*4 + int(b[i+2])*2 + int(b[i+3])
-		if a > 9:
-			res = res + "x"
-		else:
-			res = res + str(a)
-	return res	
-
+    res = ''
+    for i in range(t,len(b), 4):
+        a = int(b[i:i+4], 2)
+        res += "x" if a > 9 else str(a)
+    return res
 
 ## Find a date from the 1st January 1997
 def find_date (x):
