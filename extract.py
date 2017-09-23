@@ -46,20 +46,11 @@ def hex_to_bin(h):
 
 ## Binary to alphabet with offset t (on 5 bits)
 def bin_to_alphabet (b, t):
-	res = ''
-	a = int(0)
-	if len(b)%5 == 0:
-		r = 5
-	else:
-		r = len(b)%5
-	
-	for i in range(0+t,len(b)-(r+t), 5):
-		a = int(b[i])*16 + int(b[i+1])*8 + int(b[i+2])*4 + int(b[i+3])*2 + int(b[i+4])
-		if a > 26 or a < 1:
-			res = res + ' '
-		else:
-			res = res + chr(64+a)
-	return res
+    res = ''
+    for i in range(t, len(b), 5):
+        a = int(b[i:i+5], 2)
+	res += ' ' if (a > 26 or a < 1) else chr(64+a)
+    return res
 
 
 ## Binary to number (on the total length)
