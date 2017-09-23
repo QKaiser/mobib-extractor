@@ -34,62 +34,6 @@ from smartcard.Exceptions import NoCardException
 
 numero = ['0','1','2','3','4','5','6','7','8','9']
 
-## List of manufacturers
-def list_manufacturers(x):
-	if x == '02' or x == '11' or x == '20' or x == '2E':
-		return 'Calyspo'
-	if x == '00':
-		return 'ASK'
-	elif x == '01':
-		return 'Intec'
-	elif x == '03':
-		return 'Ascom'
-	elif x == '04':
-		return 'Thales'
-	elif x == '05':
-		return 'Sagem'
-	elif x == '06':
-		return 'Axalto'
-	elif x == '07':
-		return 'Bull'
-	elif x == '08':
-		return 'Spirtech'
-	elif x == '09':
-		return 'BMS'
-	elif x == '0A':
-		return 'Oberthur'
-	elif x == '0B':
-		return 'Gemplus'
-	elif x == '0C':
-		return 'Magnadata'
-	elif x == '0D':
-		return 'Calmell'
-	elif x == '0E':
-		return 'Mecstar'
-	elif x == '0F':
-		return 'ACG Identification'
-	elif x == '10':
-		return 'STMicroelectronics'
-	elif x == '12':
-		return 'Giesecke & Devrient'
-	elif x == '13':
-		return 'OTI'
-	elif x == '14':
-		return 'Gemalto'
-	elif x == '15':
-		return 'Watchdata'
-	elif x == '16':
-		return 'Alios'
-	elif x == '17':
-		return 'S-P-S'
-	elif x == '18':
-		return 'IRSA'
-	elif x == '21':
-		return 'Innovatron'
-	else:
-		return 'RFU'
-	
-
 ###############
 ## Fonctions ##
 ###############
