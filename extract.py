@@ -27,7 +27,8 @@ import csv
 from smartcard.System import readers
 from smartcard.util import toHexString, toBytes
 from smartcard.Exceptions import NoCardException
-
+import matplotlib.pyplot as plt
+import mplleaflet
 
 def hex_to_bin(h):
     """Hexadecimal to binary
@@ -38,7 +39,8 @@ def bin_to_alphabet (b, t):
     """Binary to alphabet with offset t (on 5 bits)
     """
     res = ''
-    for i in range(t, len(b), 5):
+    r = 5 if len(b)%5 == 0 else len(b)%5
+    for i in range(t, len(b)-(r+t), 5):
         a = int(b[i:i+5], 2)
 	res += ' ' if (a > 26 or a < 1) else chr(64+a)
     return res
@@ -52,7 +54,8 @@ def bin_to_number_dec (b, t):
     """Binary to number with offset t (on 4 bits)
     """
     res = ''
-    for i in range(t,len(b), 4):
+    r = 4 if len(b)%4 == 0 else len(b)%4
+    for i in range(t,len(b)-(r+t), 4):
         a = int(b[i:i+4], 2)
         res += "x" if a > 9 else str(a)
     return res
@@ -324,6 +327,10 @@ def analyze_logs(raw_logs):
     for i in range(0,3):
         print "%s\t\t%s\t%s\t\t%s %s:%s\t\t%s;%s" % (type_transport[i], ligne[i], station[i], date_valid[i], heure_valid[i][0], heure_valid[i][1], coordx[i], coordy[i])
     print
+    for i in range(0,3):
+        if coordx[i] != "-":
+            plt.plot(coordy[i], coordx[i], 'rs')
+    mplleaflet.show()
 
 if __name__ == "__main__":
 
