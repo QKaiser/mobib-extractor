@@ -257,22 +257,14 @@ def analyze_logs(raw_logs):
 	    else:
 	        type_transport[i] = 'Metro'
 	        reader = csv.reader(open("Database/metro_new.csv", "rb"))
-	        # Special case: a reader at the station Gare Centrale does not have the correct UID !!!!
-	        if string_logs[i][104:131] == '000111001101011011011101010':
-		    ligne[i] = "1A/1B"
-		    station[i] = "Gare Centrale"
-		    direction[i] = "No info"
-		    coordx[i] = "1223"
-		    coordy[i] = "1347"
-		else:
-		    for r in reader:
-		        if string_logs[i][104:110] == r[1] and string_logs[i][110:114] == r[2] and string_logs[i][114:121] == r[3]:
-			    ligne[i] = r[4]
-			    station[i] = r[5]
-			    direction[i] = "No info"
-			    coordx[i] = r[6]
-			    coordy[i] = r[7]
-			# if the transport is a premetro
+		for r in reader:
+		    if string_logs[i][104:110] == r[1] and string_logs[i][110:114] == r[2] and string_logs[i][114:121] == r[3]:
+		        ligne[i] = r[4]
+			station[i] = r[5]
+			direction[i] = "No info"
+			coordx[i] = r[6]
+			coordy[i] = r[7]
+	# if the transport is a premetro
 	elif string_logs[i][99:104] == '00111':
             type_transport[i] = 'Premetro'
             reader = csv.reader(open("Database/metro_new.csv", "rb"))
