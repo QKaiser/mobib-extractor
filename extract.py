@@ -26,7 +26,7 @@ import os
 import csv
 from smartcard.System import readers
 from smartcard.util import toHexString, toBytes
-
+from smartcard.Exceptions import NoCardException
 
 ##################
 ## Informations ##
@@ -372,7 +372,7 @@ def analyze_logs(raw_logs):
 	        coordy[i] = "-"
 	    else:
 	        type_transport[i] = 'Metro'
-	        reader = csv.reader(open("Database/Metro.csv", "rb"))
+	        reader = csv.reader(open("Database/metro_new.csv", "rb"))
 	        # Special case: a reader at the station Gare Centrale does not have the correct UID !!!!
 	        if string_logs[i][104:131] == '000111001101011011011101010':
 		    ligne[i] = "1A/1B"
@@ -410,7 +410,7 @@ def analyze_logs(raw_logs):
 	# if the transport is a bus
 	elif string_logs[i][99:104] == '01111':
 	    type_transport[i] = 'Bus'
-	    reader = csv.reader(open("Database/Bus.csv", "rb"))
+	    reader = csv.reader(open("Database/bus_new.csv", "rb"))
 	    for r in reader:
 	    	if bin_to_number(string_logs[i][92:99]) == r[0] and bin_to_number(string_logs[i][71:83]) == r[5]:
 	    	    ligne[i] = r[0]
@@ -439,16 +439,22 @@ def analyze_logs(raw_logs):
 
 
     print "\n\033[1mLast known locations:\033[0m\n"
-    print "\033[4mTransport\tLine\tStation\t\tTime\033[0m"
+    print "\033[4mTransport\tLine\tStation\t\tTime\t\t\t\tCoords\033[0m"
     for i in range(0,3):
-        print "%s\t\t%s\t%s\t\t%s %s:%s" % (type_transport[i], ligne[i], station[i], date_valid[i], heure_valid[i][0], heure_valid[i][1])
+        print "%s\t\t%s\t%s\t\t%s %s:%s\t\t%s;%s" % (type_transport[i], ligne[i], station[i], date_valid[i], heure_valid[i][0], heure_valid[i][1], coordx[i], coordy[i])
     print
 r=readers()
-if len(r):
-    print "\033[92mSmartcard reader detected.\033[0m\nConnecting to \033[4m%s\033[0m...\n" % r[0]
+if not len(r):
+    print "[!] No reader detected"
+    sys.exit(-1)
 
-connection = r[0].createConnection()
-connection.connect()
+print "\033[92mSmartcard reader detected.\033[0m\nConnecting to \033[4m%s\033[0m...\n" % r[0]
+try:
+    connection = r[0].createConnection()
+    connection.connect()
+except NoCardException as e:
+    print "[!] Connect a card, dummy."
+    sys.exit(-1)
 
 s = "00 A4 04 00 0E 31 54 49 43 2E 49 43 41 D0 56 00 01 91 01"
 select_command = toBytes(s)
