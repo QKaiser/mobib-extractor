@@ -64,11 +64,7 @@ def bin_to_alphabet (b, t):
 
 ## Binary to number (on the total length)
 def bin_to_number (b):
-	a = int(0)
-	for i in range(len(b)-1, -1, -1):
-		a = a + int(b[i])*pow(2,len(b)-i-1)
-	return str(a)
-
+    return str(int(b,2))
 
 ## Binary to number with offset t (on 4 bits)
 def bin_to_number_dec (b, t):
