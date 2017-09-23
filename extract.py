@@ -274,10 +274,10 @@ def analyze_logs(raw_logs):
 			    coordy[i] = r[7]
 			# if the transport is a premetro
 	elif string_logs[i][99:104] == '00111':
-	    type_transport[i] = 'Premetro'
-	    reader = csv.reader(open("Database/Metro.csv", "rb"))
-	    for r in reader:
-	        if string_logs[i][104:110] == r[1] and string_logs[i][110:114] == r[2] and string_logs[i][114:121] == r[3]:
+            type_transport[i] = 'Premetro'
+            reader = csv.reader(open("Database/metro_new.csv", "rb"))
+            for r in reader:
+                if string_logs[i][104:110] == r[1] and string_logs[i][110:114] == r[2] and string_logs[i][114:121] == r[3]:
 		    ligne[i] = r[4]
 		    station[i] = r[5]
 		    direction[i] = "No info"
