@@ -93,18 +93,6 @@ def find_date (x):
 	else:
 		return d.strftime("%d/%m/%Y")
 
-
-## Find a date from the 1st January 1990
-def find_date_manuf (x):
-	init = datetime.date(1990, 1, 1)
-	diff = datetime.timedelta(days=x)
-	d = init + diff
-	if d == init:
-		return "-"
-	else:
-		return d.strftime("%d/%m/%Y")
-
-
 ## Find an hour
 def find_hour (x):
 	min = str(int(x)%60)
