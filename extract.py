@@ -324,67 +324,70 @@ def analyze_logs(raw_logs):
     for i in range(0,3):
         print "%s\t\t%s\t%s\t\t%s %s:%s\t\t%s;%s" % (type_transport[i], ligne[i], station[i], date_valid[i], heure_valid[i][0], heure_valid[i][1], coordx[i], coordy[i])
     print
-r=readers()
-if not len(r):
-    print "[!] No reader detected"
-    sys.exit(-1)
 
-print "\033[92mSmartcard reader detected.\033[0m\nConnecting to \033[4m%s\033[0m...\n" % r[0]
-try:
-    connection = r[0].createConnection()
-    connection.connect()
-except NoCardException as e:
-    print "[!] Connect a card, dummy."
-    sys.exit(-1)
+if __name__ == "__main__":
 
-s = "00 A4 04 00 0E 31 54 49 43 2E 49 43 41 D0 56 00 01 91 01"
-select_command = toBytes(s)
-data,sw1,sw2 = connection.transmit(select_command)
+    r=readers()
+    if not len(r):
+        print "[!] No reader detected"
+        sys.exit(-1)
 
-s = "00 B2 01 3C 1D"
-select_command = toBytes(s)
-data,sw1,sw2 = connection.transmit(select_command)
-raw_envholder = toHexString(data).split(' ')
+    print "\033[92mSmartcard reader detected.\033[0m\nConnecting to \033[4m%s\033[0m...\n" % r[0]
+    try:
+        connection = r[0].createConnection()
+        connection.connect()
+    except NoCardException as e:
+        print "[!] Connect a card, dummy."
+        sys.exit(-1)
 
-s = "00 B2 01 CC 1D"
-select_command = toBytes(s)
-data,sw1,sw2 = connection.transmit(select_command)
-raw_counter = toHexString(data).split(' ')
-raw_logs = []
-# EvLog1
-s = "00 B2 01 BC 1D"
-select_command = toBytes(s)
-data,sw1,sw2 = connection.transmit(select_command)
-raw_logs.append(toHexString(data).split(' '))
+    s = "00 A4 04 00 0E 31 54 49 43 2E 49 43 41 D0 56 00 01 91 01"
+    select_command = toBytes(s)
+    data,sw1,sw2 = connection.transmit(select_command)
 
-# EvLog2
-s = "00 B2 02 BC 1D"
-select_command = toBytes(s)
-data,sw1,sw2 = connection.transmit(select_command)
-raw_logs.append(toHexString(data).split(' '))
+    s = "00 B2 01 3C 1D"
+    select_command = toBytes(s)
+    data,sw1,sw2 = connection.transmit(select_command)
+    raw_envholder = toHexString(data).split(' ')
 
-# EvLog3
-s = "00 B2 03 BC 1D"
-select_command = toBytes(s)
-data,sw1,sw2 = connection.transmit(select_command)
-raw_logs.append(toHexString(data).split(' '))
+    s = "00 B2 01 CC 1D"
+    select_command = toBytes(s)
+    data,sw1,sw2 = connection.transmit(select_command)
+    raw_counter = toHexString(data).split(' ')
+    raw_logs = []
+    # EvLog1
+    s = "00 B2 01 BC 1D"
+    select_command = toBytes(s)
+    data,sw1,sw2 = connection.transmit(select_command)
+    raw_logs.append(toHexString(data).split(' '))
 
-s = "00 A4 04 00 0B A0 00 00 02 91 D0 56 00 01 90 01"
-select_command = toBytes(s)
-data,sw1,sw2 = connection.transmit(select_command)
-s = "00 B2 01 E4 1D"
-select_command = toBytes(s)
-data,sw1,sw2 = connection.transmit(select_command)
-raw_holder1 = toHexString(data).split(' ')
+    # EvLog2
+    s = "00 B2 02 BC 1D"
+    select_command = toBytes(s)
+    data,sw1,sw2 = connection.transmit(select_command)
+    raw_logs.append(toHexString(data).split(' '))
 
-s = "00 B2 02 E4 1D"
-select_command = toBytes(s)
-data,sw1,sw2 = connection.transmit(select_command)
-raw_holder2 = toHexString(data).split(' ')
+    # EvLog3
+    s = "00 B2 03 BC 1D"
+    select_command = toBytes(s)
+    data,sw1,sw2 = connection.transmit(select_command)
+    raw_logs.append(toHexString(data).split(' '))
 
-analyze_holder(raw_holder1, raw_holder2)
-# if not basic card
-if len(raw_envholder) > 1:
-    analyze_envholder(raw_envholder)
-analyze_counter(raw_counter)
-analyze_logs(raw_logs)
+    s = "00 A4 04 00 0B A0 00 00 02 91 D0 56 00 01 90 01"
+    select_command = toBytes(s)
+    data,sw1,sw2 = connection.transmit(select_command)
+    s = "00 B2 01 E4 1D"
+    select_command = toBytes(s)
+    data,sw1,sw2 = connection.transmit(select_command)
+    raw_holder1 = toHexString(data).split(' ')
+
+    s = "00 B2 02 E4 1D"
+    select_command = toBytes(s)
+    data,sw1,sw2 = connection.transmit(select_command)
+    raw_holder2 = toHexString(data).split(' ')
+
+    analyze_holder(raw_holder1, raw_holder2)
+    # if not basic card
+    if len(raw_envholder) > 1:
+        analyze_envholder(raw_envholder)
+    analyze_counter(raw_counter)
+    analyze_logs(raw_logs)
