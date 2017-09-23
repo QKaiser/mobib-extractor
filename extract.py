@@ -28,57 +28,53 @@ from smartcard.System import readers
 from smartcard.util import toHexString, toBytes
 from smartcard.Exceptions import NoCardException
 
-##################
-## Informations ##
-##################
 
-numero = ['0','1','2','3','4','5','6','7','8','9']
-
-###############
-## Fonctions ##
-###############
-
-
-## Hexadecimal to binary
 def hex_to_bin(h):
+    """Hexadecimal to binary
+    """
     return bin(int(h,16))[2:].zfill(len(h)*4)
 
-## Binary to alphabet with offset t (on 5 bits)
 def bin_to_alphabet (b, t):
+    """Binary to alphabet with offset t (on 5 bits)
+    """
     res = ''
     for i in range(t, len(b), 5):
         a = int(b[i:i+5], 2)
 	res += ' ' if (a > 26 or a < 1) else chr(64+a)
     return res
 
-## Binary to number (on the total length)
 def bin_to_number (b):
+    """Binary to number (on the total length)
+    """
     return str(int(b,2))
 
-## Binary to number with offset t (on 4 bits)
 def bin_to_number_dec (b, t):
+    """Binary to number with offset t (on 4 bits)
+    """
     res = ''
     for i in range(t,len(b), 4):
         a = int(b[i:i+4], 2)
         res += "x" if a > 9 else str(a)
     return res
 
-## Find a date from the 1st January 1997
 def find_date (x):
-	init = datetime.date(1997, 1, 1)
-	diff = datetime.timedelta(days=x)
-	d = init + diff
-	if d == init:
-		return "-"
-	else:
-		return d.strftime("%d/%m/%Y")
+    """Find a date from the 1st January 1997
+    """
+    init = datetime.date(1997, 1, 1)
+    diff = datetime.timedelta(days=x)
+    d = init + diff
+    if d == init:
+	return "-"
+    else:
+	return d.strftime("%d/%m/%Y")
 
-## Find an hour
 def find_hour (x):
-	min = str(int(x)%60)
-	if min in numero:
-		min = '0'+min
-	return (int(x)/60, min)	
+    """Find an hour
+    """
+    min = str(int(x)%60)
+    if min in [x for x in string.digits]:
+	min = '0'+min
+    return (int(x)/60, min)
 
 
 #########################################################################
