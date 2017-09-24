@@ -27,4 +27,4 @@ if __name__ == "__main__":
                 outfile.write('"%s","%s","%s","%s","%s","%s","%s","%s"\n' % (metro[0], metro[1], metro[2], metro[3], metro[4], metro[5], stop[4].replace(" ", ""), stop[5].replace(" ", "")))
         if not found:
             print "[!] No match for %s" % (metro[5])
-            outfile.write('"%s","%s","%s","%s","%s","%s",0.0","0.0"\n' % (metro[0], metro[1], metro[2], metro[3], metro[4], metro[5]))
+            outfile.write('"%s","%s","%s","%s","%s","%s","0.0","0.0"\n' % (metro[0], metro[1], metro[2], metro[3], metro[4], metro[5]))
