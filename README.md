@@ -19,7 +19,7 @@ Supports both contacted and contactless smart card readers.
 
 ```
 apt-get install libpcsclite1 libpcsclite1-dev python python-virtualenv
-virtualenv ve
+virtualenv -p python3 ve
 source ve/bin/activate
 pip install -r requirements.txt
 ```
