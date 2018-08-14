@@ -326,18 +326,23 @@ def analyze_logs(raw_logs):
 
 if __name__ == "__main__":
 
-    r=readers()
-    if not len(r):
+    connected_readers = readers()
+    if len(connected_readers) == 0:
         print("[!] No reader detected")
         sys.exit(-1)
 
-    
-    print("\033[92mSmartcard reader detected.\033[0m\nConnecting to \033[4m{}\033[0m...\n".format(r[1]))
-    try:
-        connection = r[1].createConnection()
-        connection.connect()
-    except NoCardException as e:
-        print("[!] Connect a card, dummy.")
+    no_card = 0
+    print("\033[92mSmartcard reader detected.\033[0m")
+    for reader in connected_readers:
+        try:
+            print("Connecting to \033[4m{}\033[0m...".format(reader))
+            connection = reader.createConnection()
+            connection.connect()
+        except NoCardException as e:
+            print("[!] No card inserted.")
+            no_card += 1
+
+    if no_card == len(connected_readers):
         sys.exit(-1)
 
     # 0x00 class byte
