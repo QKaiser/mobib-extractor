@@ -2,7 +2,9 @@
 
 Read data stored on your MOBIB card (STIB/MIVB, SNCB/NMBS, TEC).
 
-My objective with this project is to:
+![screenshot](screenshot.png)
+
+    My objective with this project is to:
 
 - get rid of this bloated Tk GUI and have a simple CLI tool
 - use valid APDUs for recent smartcards and adapt parsing code
@@ -10,8 +12,6 @@ My objective with this project is to:
 - clean install & packaging
 
 Supports both contacted and contactless smart card readers.
-
-![screenshot](screenshot.png)
 
 # Installation
 
