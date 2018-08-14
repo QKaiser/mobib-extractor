@@ -11,6 +11,8 @@ My objective with this project is to:
 
 Supports both contacted and contactless smart card readers.
 
+![screenshot](screenshot.png)
+
 # Installation
 
 ## on Linux
