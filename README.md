@@ -9,7 +9,7 @@ My objective with this project is to:
 - rewrite parsing code in a Pythonic way
 - clean install & packaging
 
-Right now it only supports smartcard readers. NFC will come later.
+Supports both contacted and contactless smart card readers.
 
 # Installation
 
